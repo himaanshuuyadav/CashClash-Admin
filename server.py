@@ -15,14 +15,13 @@ app = Flask(__name__, static_folder='.', static_url_path='')
 CORS(app)
 
 # Initialize Firebase
-# Try environment variable first (for Render), fallback to file (for local)
-firebase_creds_json = os.getenv("FIREBASE_CREDENTIALS_JSON")
-if firebase_creds_json:
-    # Load from environment variable (production)
-    cred_dict = json.loads(firebase_creds_json)
-    cred = credentials.Certificate(cred_dict)
+# Try Render Secret File first, then environment variable, then local file
+secret_file_path = "/etc/secrets/serviceAccountKey.json"
+if os.path.exists(secret_file_path):
+    # Load from Render Secret File (production)
+    cred = credentials.Certificate(secret_file_path)
 else:
-    # Load from file (local development)
+    # Load from local file (local development)
     cred = credentials.Certificate(os.getenv("FIREBASE_CREDENTIALS_PATH", "serviceAccountKey.json"))
 
 firebase_admin.initialize_app(cred)
