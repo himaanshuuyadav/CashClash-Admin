@@ -1,4 +1,5 @@
 import os
+import json
 import random
 import time
 from flask import Flask, request, send_from_directory, jsonify, send_file
@@ -14,7 +15,16 @@ app = Flask(__name__, static_folder='.', static_url_path='')
 CORS(app)
 
 # Initialize Firebase
-cred = credentials.Certificate(os.getenv("FIREBASE_CREDENTIALS_PATH", "serviceAccountKey.json"))
+# Try environment variable first (for Render), fallback to file (for local)
+firebase_creds_json = os.getenv("FIREBASE_CREDENTIALS_JSON")
+if firebase_creds_json:
+    # Load from environment variable (production)
+    cred_dict = json.loads(firebase_creds_json)
+    cred = credentials.Certificate(cred_dict)
+else:
+    # Load from file (local development)
+    cred = credentials.Certificate(os.getenv("FIREBASE_CREDENTIALS_PATH", "serviceAccountKey.json"))
+
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
@@ -305,4 +315,6 @@ def debug_otp(user_id):
 
 if __name__ == '__main__':
     port = int(os.getenv("PORT", 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+    # Debug mode should be False in production
+    debug_mode = os.getenv("FLASK_DEBUG", "False").lower() == "true"
+    app.run(host='0.0.0.0', port=port, debug=debug_mode)
