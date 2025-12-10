@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CashClash Admin - Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2 class="logo-text">CashClash</h2>
+                <p class="admin-badge">Admin</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item active">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="tournaments.html" class="nav-item">
+                    <span class="nav-icon">🏆</span>
+                    <span>Tournaments</span>
+                </a>
+                <a href="withdrawals.html" class="nav-item">
+                    <span class="nav-icon">💰</span>
+                    <span>Withdrawals</span>
+                </a>
+                <a href="users.html" class="nav-item">
+                    <span class="nav-icon">👥</span>
+                    <span>Users</span>
+                </a>
+                <a href="#" class="nav-item" onclick="logout()">
+                    <span class="nav-icon">🚪</span>
+                    <span>Logout</span>
+                </a>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h1>Dashboard</h1>
+                <div class="user-info">
+                    <span>Welcome, Admin</span>
+                </div>
+            </header>
+            
+            <div class="content-area">
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card gradient-purple">
+                        <div class="stat-icon">🏆</div>
+                        <div class="stat-info">
+                            <h3 id="totalTournaments">0</h3>
+                            <p>Total Tournaments</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card gradient-blue">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-info">
+                            <h3 id="totalUsers">0</h3>
+                            <p>Active Users</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card gradient-green">
+                        <div class="stat-icon">💵</div>
+                        <div class="stat-info">
+                            <h3 id="totalRevenue">$0</h3>
+                            <p>Total Revenue</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card gradient-orange">
+                        <div class="stat-icon">⏳</div>
+                        <div class="stat-info">
+                            <h3 id="pendingWithdrawals">0</h3>
+                            <p>Pending Withdrawals</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="section-header">
+                    <h2>Quick Actions</h2>
+                </div>
+                
+                <div class="quick-actions">
+                    <a href="tournaments.html#create" class="action-card">
+                        <div class="action-icon">➕</div>
+                        <h3>Create Tournament</h3>
+                        <p>Schedule a new tournament</p>
+                    </a>
+                    
+                    <a href="withdrawals.html" class="action-card">
+                        <div class="action-icon">✅</div>
+                        <h3>Review Withdrawals</h3>
+                        <p>Approve pending requests</p>
+                    </a>
+                    
+                    <a href="users.html" class="action-card">
+                        <div class="action-icon">👤</div>
+                        <h3>Manage Users</h3>
+                        <p>View and manage users</p>
+                    </a>
+                </div>
+                
+                <!-- Recent Activity -->
+                <div class="section-header">
+                    <h2>Recent Tournaments</h2>
+                    <a href="tournaments.html" class="btn-link">View All</a>
+                </div>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Tournament Name</th>
+                                <th>Status</th>
+                                <th>Players</th>
+                                <th>Prize Pool</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentTournaments">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
