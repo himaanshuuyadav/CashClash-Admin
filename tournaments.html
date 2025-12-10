@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CashClash Admin - Tournaments</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2 class="logo-text">CashClash</h2>
+                <p class="admin-badge">Admin</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="tournaments.html" class="nav-item active">
+                    <span class="nav-icon">🏆</span>
+                    <span>Tournaments</span>
+                </a>
+                <a href="withdrawals.html" class="nav-item">
+                    <span class="nav-icon">💰</span>
+                    <span>Withdrawals</span>
+                </a>
+                <a href="users.html" class="nav-item">
+                    <span class="nav-icon">👥</span>
+                    <span>Users</span>
+                </a>
+                <a href="#" class="nav-item" onclick="logout()">
+                    <span class="nav-icon">🚪</span>
+                    <span>Logout</span>
+                </a>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h1>Tournaments</h1>
+                <button class="btn btn-gradient" onclick="showCreateModal()">+ Create Tournament</button>
+            </header>
+            
+            <div class="content-area">
+                <!-- Filters -->
+                <div class="filter-bar">
+                    <select id="statusFilter" class="filter-select" title="Filter by Status" onchange="filterTournaments()">
+                        <option value="all">All Status</option>
+                        <option value="upcoming">Upcoming</option>
+                        <option value="ongoing">Ongoing</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+                
+                <!-- Tournaments List -->
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tournament Name</th>
+                                <th>Entry Fee</th>
+                                <th>Prize Pool</th>
+                                <th>Players</th>
+                                <th>Status</th>
+                                <th>Date/Time</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tournamentsTable">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Create Tournament Modal -->
+    <div id="createModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create New Tournament</h2>
+                <span class="close" onclick="closeCreateModal()">&times;</span>
+            </div>
+            
+            <form id="createTournamentForm" class="form">
+                <div class="form-group">
+                    <label for="tournamentName">Tournament Name *</label>
+                    <input type="text" id="tournamentName" required placeholder="e.g., Free Fire Championship 2024">
+                </div>
+                
+                <div class="form-group">
+                    <label for="category">Category *</label>
+                    <select id="category" required onchange="updateCategoryInfo()">
+                        <option value="">Select Category</option>
+                        <option value="Bermuda">Bermuda (Solo - 48 Players)</option>
+                        <option value="Clash Squad 1v1">Clash Squad 1v1 (2 Players)</option>
+                        <option value="Clash Squad 2v2">Clash Squad 2v2 (4 Players)</option>
+                    </select>
+                </div>
+                
+                <div id="categoryInfo" class="category-info" style="display: none; padding: 12px; background: #1e293b; border-radius: 8px; margin-top: 8px;">
+                    <h4 style="margin: 0 0 8px 0; color: #7c3aed;">Category Details</h4>
+                    <div id="categoryDetails"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="startTime">Time *</label>
+                    <input type="time" id="startTime" required>
+                    <small>Date will be set to today automatically</small>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeCreateModal()">Cancel</button>
+                    <button type="submit" class="btn btn-gradient">Create Tournament</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Results Modal -->
+    <div id="resultsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Enter Tournament Results</h2>
+                <span class="close" onclick="closeResultsModal()">&times;</span>
+            </div>
+            
+            <form id="resultsForm" class="form">
+                <input type="hidden" id="resultTournamentId">
+                
+                <div class="form-group">
+                    <label for="winnerName">Winner Name</label>
+                    <input type="text" id="winnerName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="winnerKills">Winner Kills</label>
+                    <input type="number" id="winnerKills" required min="0">
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeResultsModal()">Cancel</button>
+                    <button type="submit" class="btn btn-gradient">Save Results</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    
+    <script src="js/auth.js"></script>
+    <script src="js/tournaments.js"></script>
+</body>
+</html>
