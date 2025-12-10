@@ -46,3 +46,7 @@ test_*.py
 *.tmp
 *.bak
 *~
+
+# Documentation (except README.md)
+*.md
+!README.md
