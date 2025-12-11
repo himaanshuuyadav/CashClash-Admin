@@ -8,6 +8,9 @@ let editingTournamentId = null;
 
 async function loadTournaments() {
     try {
+        // First, update tournament statuses based on time
+        await updateTournamentStatuses();
+        
         const snapshot = await tournamentsRef.orderBy('createdAt', 'desc').get();
         const tournaments = [];
         
@@ -22,6 +25,21 @@ async function loadTournaments() {
     } catch (error) {
         console.error('Error loading tournaments:', error);
         alert('Error loading tournaments: ' + error.message);
+    }
+}
+
+async function updateTournamentStatuses() {
+    try {
+        const response = await fetch('/api/update-tournament-statuses', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const data = await response.json();
+        console.log('Tournament statuses updated:', data);
+    } catch (error) {
+        console.error('Error updating tournament statuses:', error);
     }
 }
 
@@ -164,6 +182,23 @@ if (document.getElementById('createTournamentForm')) {
             const [hours, minutes] = timeValue.split(':');
             today.setHours(parseInt(hours), parseInt(minutes), 0, 0);
             
+            const registrationStartTime = today.getTime();
+            const registrationEndTime = registrationStartTime + (30 * 60 * 1000); // +30 minutes
+            const tournamentEndTime = registrationEndTime + (30 * 60 * 1000); // +30 minutes after registration closes
+            
+            // Determine initial status based on current time
+            const now = Date.now();
+            let initialStatus;
+            if (now < registrationStartTime) {
+                initialStatus = 'UPCOMING';
+            } else if (now < registrationEndTime) {
+                initialStatus = 'OPEN';
+            } else if (now < tournamentEndTime) {
+                initialStatus = 'LIVE';
+            } else {
+                initialStatus = 'ENDED';
+            }
+            
             // Set category-specific values
             let entryFee, maxPlayers, perKillReward, winnerPrize, prizePool;
             let appCategory; // Category displayed in app
@@ -208,8 +243,11 @@ if (document.getElementById('createTournamentForm')) {
                 totalRounds: 1,
                 currentRound: 1,
                 matchDuration: category === 'Bermuda' ? '20-25 min' : '10-15 min',
-                startTime: today.getTime(),
-                status: 'OPEN',
+                startTime: registrationStartTime,
+                registrationStartTime: registrationStartTime,
+                registrationEndTime: registrationEndTime,
+                tournamentEndTime: tournamentEndTime,
+                status: initialStatus,
                 rules: getRulesForCategory(category),
                 roomId: null,
                 roomPassword: null,

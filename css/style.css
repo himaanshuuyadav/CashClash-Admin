@@ -388,9 +388,15 @@ body {
     display: inline-block;
 }
 
+/* Tournament Status Badges */
 .status-upcoming { background: rgba(59, 130, 246, 0.2); color: var(--blue); }
-.status-ongoing { background: rgba(16, 185, 129, 0.2); color: var(--success); }
-.status-completed { background: rgba(180, 180, 180, 0.2); color: var(--text-secondary); }
+.status-open { background: rgba(16, 185, 129, 0.2); color: var(--success); }
+.status-live { background: rgba(255, 152, 0, 0.2); color: #FF9800; }
+.status-ended { background: rgba(180, 180, 180, 0.2); color: var(--text-secondary); }
+.status-ongoing { background: rgba(255, 152, 0, 0.2); color: #FF9800; } /* Legacy */
+.status-completed { background: rgba(180, 180, 180, 0.2); color: var(--text-secondary); } /* Legacy */
+
+/* Withdrawal Status Badges */
 .status-pending { background: rgba(245, 158, 11, 0.2); color: var(--warning); }
 .status-approved { background: rgba(16, 185, 129, 0.2); color: var(--success); }
 .status-declined { background: rgba(239, 68, 68, 0.2); color: var(--error); }

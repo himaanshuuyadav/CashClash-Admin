@@ -287,6 +287,61 @@ def health_check():
         "timestamp": int(time.time())
     }), 200
 
+@app.route('/api/update-tournament-statuses', methods=['POST'])
+def update_tournament_statuses():
+    """Update tournament statuses based on current time"""
+    try:
+        current_time = int(time.time() * 1000)  # Convert to milliseconds
+        tournaments_ref = db.collection('tournaments')
+        
+        # Get all tournaments that are not ended
+        tournaments = tournaments_ref.where('status', '!=', 'ENDED').stream()
+        
+        updated_count = 0
+        for tournament in tournaments:
+            tournament_data = tournament.to_dict()
+            tournament_id = tournament.id
+            
+            registration_start = tournament_data.get('registrationStartTime', tournament_data.get('startTime'))
+            registration_end = tournament_data.get('registrationEndTime')
+            tournament_end = tournament_data.get('tournamentEndTime')
+            
+            if not all([registration_start, registration_end, tournament_end]):
+                continue
+            
+            current_status = tournament_data.get('status')
+            new_status = None
+            
+            # Determine new status based on time
+            if current_time < registration_start:
+                new_status = 'UPCOMING'
+            elif current_time < registration_end:
+                new_status = 'OPEN'
+            elif current_time < tournament_end:
+                new_status = 'LIVE'
+            else:
+                new_status = 'ENDED'
+            
+            # Update if status changed
+            if new_status and new_status != current_status:
+                tournaments_ref.document(tournament_id).update({
+                    'status': new_status,
+                    'updatedAt': firestore.SERVER_TIMESTAMP
+                })
+                updated_count += 1
+        
+        return jsonify({
+            "success": True,
+            "updated": updated_count
+        }), 200
+        
+    except Exception as e:
+        print(f"Error updating tournament statuses: {str(e)}")
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        }), 500
+
 @app.route('/api/debug-otp/<user_id>', methods=['GET'])
 def debug_otp(user_id):
     """Debug endpoint to see what's stored for a userId"""
