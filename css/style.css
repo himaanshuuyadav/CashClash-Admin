@@ -142,7 +142,7 @@ body {
 }
 
 .login-card {
-    background: var(--dark-card);
+    background: var(--dark-surface);
     padding: var(--spacing-xl) var(--spacing-xl) var(--spacing-xl);
     border-radius: var(--radius-2xl);
     width: 100%;
@@ -201,7 +201,7 @@ body {
 .form-group textarea,
 .form-group select {
     padding: 16px 18px;
-    background: var(--dark-surface);
+    background: var(--dark-card);
     border: 2px solid rgba(255, 255, 255, 0.05);
     border-radius: var(--radius-md);
     color: var(--text-primary);
@@ -294,13 +294,13 @@ body {
 }
 
 .btn-secondary {
-    background: var(--dark-surface);
+    background: var(--dark-card);
     color: var(--text-primary);
     border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .btn-secondary:hover {
-    background: var(--dark-card);
+    background: var(--dark-surface);
     border-color: rgba(255, 255, 255, 0.2);
 }
 
@@ -352,7 +352,7 @@ body {
 /* ========== SIDEBAR ========== */
 .sidebar {
     width: 280px;
-    background: linear-gradient(180deg, var(--dark-card) 0%, rgba(22, 33, 62, 0.95) 100%);
+    background: var(--dark-surface);
     padding: var(--spacing-lg);
     display: flex;
     flex-direction: column;
@@ -433,9 +433,9 @@ body {
 }
 
 .nav-item.active {
-    background: rgba(255, 204, 51, 0.15);
+    background: rgba(255, 204, 51, 0.12);
     color: var(--accent-gold);
-    box-shadow: inset 0 0 20px rgba(255, 204, 51, 0.1);
+    box-shadow: none;
 }
 
 .nav-item.active::before {
@@ -462,9 +462,9 @@ body {
     align-items: center;
     margin-bottom: var(--spacing-xl);
     padding: var(--spacing-lg);
-    background: var(--dark-card);
+    background: var(--dark-surface);
     border-radius: var(--radius-lg);
-    border: 1px solid rgba(255, 204, 51, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     box-shadow: var(--shadow-md);
 }
 
@@ -486,7 +486,7 @@ body {
     font-weight: 600;
     font-size: 15px;
     padding: 10px 18px;
-    background: var(--dark-surface);
+    background: var(--dark-card);
     border-radius: var(--radius-md);
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
@@ -510,7 +510,7 @@ body {
 }
 
 .stat-card {
-    background: var(--dark-card);
+    background: var(--dark-surface);
     padding: var(--spacing-lg);
     border-radius: var(--radius-xl);
     display: flex;
@@ -578,7 +578,7 @@ body {
 }
 
 .action-card {
-    background: var(--dark-card);
+    background: var(--dark-surface);
     padding: var(--spacing-xl);
     border-radius: var(--radius-xl);
     text-align: center;
@@ -683,7 +683,7 @@ body {
 
 /* ========== TABLE STYLES ========== */
 .table-container {
-    background: var(--dark-card);
+    background: var(--dark-surface);
     border-radius: var(--radius-xl);
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.05);
@@ -696,7 +696,7 @@ body {
 }
 
 .data-table thead {
-    background: var(--dark-surface);
+    background: var(--dark-card);
 }
 
 .data-table th {
@@ -820,7 +820,7 @@ body {
 }
 
 .modal-content {
-    background: var(--dark-card);
+    background: var(--dark-surface);
     margin: 3% auto;
     padding: 0;
     border-radius: var(--radius-2xl);
@@ -848,7 +848,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(135deg, rgba(255, 204, 51, 0.05) 0%, transparent 100%);
+    background: var(--dark-card);
 }
 
 .modal-header h2 {
@@ -906,7 +906,7 @@ body {
     display: flex;
     gap: var(--spacing-md);
     padding: var(--spacing-lg);
-    background: var(--dark-card);
+    background: var(--dark-surface);
     border-radius: var(--radius-lg);
     border: 1px solid rgba(255, 255, 255, 0.05);
     box-shadow: var(--shadow-sm);
@@ -914,7 +914,7 @@ body {
 
 .filter-select {
     padding: 12px 18px;
-    background: var(--dark-surface);
+    background: var(--dark-card);
     border: 2px solid rgba(255, 255, 255, 0.05);
     border-radius: var(--radius-md);
     color: var(--text-primary);
