@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CashClash Admin - Dashboard</title>
+    <title>Dashboard - CashClash Admin</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="admin-layout">
-        <!-- Sidebar -->
+        <!-- Sidebar Navigation -->
         <aside class="sidebar">
             <div class="sidebar-header">
-                <h2 class="logo-text">CashClash</h2>
+                <h2 class="logo-text">⚡ CashClash</h2>
                 <p class="admin-badge">Admin</p>
             </div>
             
@@ -32,24 +32,25 @@
                     <span class="nav-icon">👥</span>
                     <span>Users</span>
                 </a>
-                <a href="#" class="nav-item" onclick="logout()">
+                <a href="#" class="nav-item" onclick="logout(); return false;">
                     <span class="nav-icon">🚪</span>
                     <span>Logout</span>
                 </a>
             </nav>
         </aside>
         
-        <!-- Main Content -->
+        <!-- Main Content Area -->
         <main class="main-content">
+            <!-- Top Bar -->
             <header class="top-bar">
-                <h1>Dashboard</h1>
+                <h1>📊 Dashboard Overview</h1>
                 <div class="user-info">
-                    <span>Welcome, Admin</span>
+                    <span>Admin Dashboard</span>
                 </div>
             </header>
             
             <div class="content-area">
-                <!-- Stats Cards -->
+                <!-- Key Metrics Cards -->
                 <div class="stats-grid">
                     <div class="stat-card gradient-purple">
                         <div class="stat-icon">🏆</div>
@@ -63,15 +64,15 @@
                         <div class="stat-icon">👥</div>
                         <div class="stat-info">
                             <h3 id="totalUsers">0</h3>
-                            <p>Active Users</p>
+                            <p>Active Players</p>
                         </div>
                     </div>
                     
                     <div class="stat-card gradient-green">
-                        <div class="stat-icon">💵</div>
+                        <div class="stat-icon">💎</div>
                         <div class="stat-info">
-                            <h3 id="totalRevenue">$0</h3>
-                            <p>Total Revenue</p>
+                            <h3 id="totalRevenue">₹0</h3>
+                            <p>Total Prize Pool</p>
                         </div>
                     </div>
                     
@@ -84,35 +85,35 @@
                     </div>
                 </div>
                 
-                <!-- Quick Actions -->
+                <!-- Quick Action Cards -->
                 <div class="section-header">
-                    <h2>Quick Actions</h2>
+                    <h2>⚡ Quick Actions</h2>
                 </div>
                 
                 <div class="quick-actions">
                     <a href="tournaments.html#create" class="action-card">
                         <div class="action-icon">➕</div>
                         <h3>Create Tournament</h3>
-                        <p>Schedule a new tournament</p>
+                        <p>Schedule a new gaming tournament</p>
                     </a>
                     
                     <a href="withdrawals.html" class="action-card">
                         <div class="action-icon">✅</div>
                         <h3>Review Withdrawals</h3>
-                        <p>Approve pending requests</p>
+                        <p>Approve pending withdrawal requests</p>
                     </a>
                     
                     <a href="users.html" class="action-card">
                         <div class="action-icon">👤</div>
                         <h3>Manage Users</h3>
-                        <p>View and manage users</p>
+                        <p>View and manage player accounts</p>
                     </a>
                 </div>
                 
-                <!-- Recent Activity -->
+                <!-- Recent Tournaments Table -->
                 <div class="section-header">
-                    <h2>Recent Tournaments</h2>
-                    <a href="tournaments.html" class="btn-link">View All</a>
+                    <h2>🎮 Recent Tournaments</h2>
+                    <a href="tournaments.html" class="btn-link">View All →</a>
                 </div>
                 
                 <div class="table-container">
@@ -123,11 +124,15 @@
                                 <th>Status</th>
                                 <th>Players</th>
                                 <th>Prize Pool</th>
-                                <th>Date</th>
+                                <th>Scheduled</th>
                             </tr>
                         </thead>
                         <tbody id="recentTournaments">
-                            <!-- Populated by JavaScript -->
+                            <tr>
+                                <td colspan="5" style="text-align: center; padding: 40px; color: var(--text-secondary);">
+                                    Loading tournaments...
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -138,6 +143,7 @@
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
     
     <script src="js/auth.js"></script>
     <script src="js/dashboard.js"></script>
